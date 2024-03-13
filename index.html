@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator using Javascript</title>
+
+    <!--*******style for calculator*******-->
+     <style>
+        * {
+                 box-sizing: border-box;
+            }
+
+        body {
+                 background-color: #2782e3;
+                 font-family: sans-serif;
+                 margin: 0;
+                 padding: 0;
+            }
+
+        .container {
+                    background-color: #eee;
+                    min-height: 100px;
+                    width: 520px;
+                    margin: 100px auto;
+                    border-radius: 5px;
+                    height: auto;
+                }
+
+        .base {
+                width: 100%;
+                margin: 0;
+                overflow: hidden;
+                display: block;
+                float: none;
+            }
+
+        .base h4{
+                    font-size: 26px;
+                    text-align: center;
+                    font-family: sans-serif;
+                    margin-top: 0px;
+                    box-shadow: 0px 2px #bababa;
+                    font-weight: normal;
+                    font-size: 34px;
+                    background: white;
+                    color: navy;
+                    padding: 5px;
+                }
+
+        .block {
+                    width: 135px;
+                     padding: 5px 20px;
+                    margin-left: 20px;
+                    display: inline-block;
+                }
+
+        .title {
+                    font-size: 20px;
+                    text-align: left;
+                    font-family: sans-serif;
+                    font-weight: normal;
+                    letter-spacing: 0.5px;
+                    color: #1073d0;
+                    word-spacing: 2.7px;
+                    line-height: 0.5;
+                }
+
+        input[type="text"] {
+                    width: 140px;
+                    margin: auto;
+                    outline: none;
+                    min-height: 50px;
+                    border: 2px solid #1073d0;
+                    border-radius: 2px;
+                    background-color: #f7f7f7;
+                    font-size: 17px;
+                    color: #1073d0;
+                    padding: 12px;
+                }
+
+        input[type="text"]:focus {
+                    background: #ffffff;
+                    border: 2px solid orange;
+                    outline: none;
+                }
+
+        input[type="button"] {
+                    width :150px;
+                    margin-left: 35%;
+                    margin-top: 40px;
+                    outline: none;
+                    border: none;
+                    border-radius: 2px;
+                    background-color: #0761b6;
+                    padding: 14px 16px;
+                    color: #ffffff;
+                    text-align: center;
+                    font-size: 17px;
+                }
+
+        input[type="button"]:hover {
+                    background-color: #003669;
+                }
+
+        #age {
+                    display: block;
+                    margin: 10px;
+                    margin-top: 35px;
+                    padding-bottom: 20px;
+                    overflow: hidden;
+                    font-family: sans-serif;
+                    font-size: 23px;
+                    font-weight: normal;
+                    line-height: 1.5;
+                    word-spacing: 2.7px;
+                    color: navy;
+                    padding: 10px;
+            }
+    </style> 
+
+</head>
+<body>
+    
+    <div class="container">
+        <form>
+            <div class="base">
+                <h4>Age Calculator</h4>
+    
+                <!-- block class for accessing birth date -->
+                <div class="block">
+                    <p class="title">Date</p>
+                    <input 
+                         type="text" 
+                         name="date" 
+                         id="date" 
+                         placeholder="dd"
+                         minlength="1" 
+                         maxlength="2" 
+                         required
+                    >
+                 </div>
+
+                <div class="block">
+                    <p class="title">Month</p>
+                    <input 
+                        type="text" 
+                        name="month" 
+                        id="month" 
+                        placeholder="mm" 
+                        minlength="1" 
+                        maxlength="2" 
+                        required
+                    >
+                </div>
+
+                <div class="block">
+                    <p class="title">Year</p>
+                    <input 
+                         type="text" 
+                         name="year" 
+                         id="year" 
+                         placeholder="yyyy" 
+                         minlength="4" 
+                         maxlength="4" 
+                         required
+                    >
+                </div>
+            </div>
+
+            <!-- base class for submit button -->
+            <div class="base">
+                <input 
+                     type="button" 
+                     name="submit" 
+                     value="Submit" 
+                     onclick="age()"
+                >          <!-- age function called -->
+            </div>
+           
+            <!-- *****display********* -->
+            <div class="age" id="age"></div>
+    
+        </form>
+    </div>
+
+    <!-- Now active it using Javascript-->
+    <script type="text/javascript">
+        
+        //function defination of age()...
+        function age() {
+            var d1 = document.getElementById("date").value;
+            var m1 = document.getElementById("month").value;
+            var y1 = document.getElementById("year").value;
+
+            var date = new Date();
+             //new Date() is a javascript method that collects time from your devive.
+
+            var d2 = date.getDate();  //getDate() : for getting the date from user..
+            var m2 = 1 + date.getMonth();  //getMonth() : for getting the month..
+            var y2 = date.getFullYear();   //getFullYear() : for getting full year..
+
+            var month = [31,28,31,30,31,30,31,31,30,31,30,31];
+
+            if(d1 > d2){
+                d2 = d2 + month[ m2 - 1 ];
+                m2 = m2 - 1;
+            }
+            if( m1 > m2 ) {
+                m2 = m2 + 12;
+                y2 = y2 - 1;
+            }
+            var d = d2 - d1;
+            var m = m2 - m1;
+            var y = y2 - y1;
+
+            document.getElementById("age").innerHTML = 'Your Age is ' + y + ' years ' + m + ' Months ' + d + ' Days ';
+        }
+    </script>
+
+</body>
+</html>
